@@ -13,7 +13,7 @@ import ImagePopup from './ImagePopup';
 import PopupDelete from './PopupDelete';
 import InfoTooltip from './InfoTooltip';
 import api from '../utils/api';
-import register from '../utils/register';
+import auth from '../utils/auth';
 import ProtectedRoute from './ProtectedRoute';
 import '../index.css';
 
@@ -49,7 +49,7 @@ const App = () => {
     useEffect(() => {
         const jwt = localStorage.getItem("JWT");
         if (jwt) {
-            register.getControl(jwt)
+            auth.getControl(jwt)
                 .then((res) => {
                     setEmail(res.data.email);
                     setUser(true);
@@ -73,23 +73,20 @@ const App = () => {
     }
 
     const registrationSubmit = (data) => {
-        register.getRegistration(data)
-            .then((res) => {
-                console.log(res);
-               if (res) {
-                setUser(true);
-                setIsInfoTooltip(true);
-               } else {
+        auth.getRegistration(data)
+            .then((res) => setUser(true))
+            .catch((err) => {
+                console.log(err);
                 setUser(false);
-                setIsInfoTooltip(true);
-               };
             })
-            .catch(err => console.log(err))
+            .finally(
+                setIsInfoTooltip(true)
+            )
     }
 
-    const avtorizationSubmit = (data) => {
+    const autorizationSubmit = (data) => {
         setEmail(data.email);
-         register.getAvtorization(data)
+         auth.getAutorization(data)
             .then((res) => {
                 if (res.token) {
                     setLoggedIn(true);
@@ -167,7 +164,7 @@ const App = () => {
         setIsPopupAvatarOpen(false);
         setIsPopupDelete(false);
         setIsInfoTooltip(false);
-        setIsDeleteCard([]);
+        setIsDeleteCard({});
     }
 
     const handleCardClick = (card) => {
@@ -199,7 +196,7 @@ const App = () => {
                     <Header user={user} email={email} loggedIn={loggedIn} handleClick={handleRegistration} />
                     <Routes>                        
                         <Route path="/sign-up" element={<Register onSubmit={registrationSubmit} handleLogin={handleLogin} />} />
-                        <Route path="/sign-in" element={<Login  onSubmit={avtorizationSubmit} />} />
+                        <Route path="/sign-in" element={<Login  onSubmit={autorizationSubmit} />} />
                         <Route path="/main" element={
                             <ProtectedRoute loggedIn={loggedIn} >
                                 <Main onEditProfile={onProfilPopupOpen} 

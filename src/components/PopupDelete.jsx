@@ -8,9 +8,7 @@ const PopupDelete = (props) => {
   }
 
   return (
-    <PopupWithForm isOpen={props.isOpen} title='Вы уверены?' name='delete' onClose={props.onClose} onSubmit={handleSubmit}>
-            <button type="submit" className="popup__form-save popup__form-save-delete" value="Да">Да</button>
-    </PopupWithForm>
+    <PopupWithForm isOpen={props.isOpen} title='Вы уверены?' name='delete' onClose={props.onClose} onSubmit={handleSubmit} buttonText={"Да"} />
   ); 
 }
 

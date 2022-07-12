@@ -24,17 +24,16 @@ const PopupCard = (props) => {
   useEffect(() => {
     setImageName('');
     setImageUrl('');
-  }, [props.onClose]);
+  }, [props.isOpen]);
 
 
   return (
-    <PopupWithForm isOpen={props.isOpen} title='Новое место' name='card' onClose={props.onClose} onSubmit={handleSubmit} >
+    <PopupWithForm isOpen={props.isOpen} title='Новое место' name='card' onClose={props.onClose} onSubmit={handleSubmit} buttonText={"Сохранить"}>
       <fieldset className="popup__form-content">
-        <input onChange={handleChangeImageName} id="popup__form-name-image" type="text" className="popup__form popup__form-name-image" name="imageName" defaultValue='' value={imageName} placeholder="Название" minLength={2} maxLength={30} required />
+        <input onChange={handleChangeImageName} id="popup__form-name-image" type="text" className="popup__form popup__form-name-image" name="imageName" value={imageName} placeholder="Название" minLength={2} maxLength={30} required />
         <span className="popup__form-error popup__form-name-image-error" />
-        <input onChange={handleChangeImageUrl} id="popup__form-url-image" type="url" className="popup__form popup__form-url-image" name="urlName" defaultValue='' value={imageUrl} placeholder="Ссылка на место" required />
+        <input onChange={handleChangeImageUrl} id="popup__form-url-image" type="url" className="popup__form popup__form-url-image" name="urlName" value={imageUrl} placeholder="Ссылка на место" required />
         <span className="popup__form-error popup__form-url-image-error" />
-        <button type="submit" className="popup__form-save" value="Сохранить">Сохранить</button>
       </fieldset>
     </PopupWithForm>
   )

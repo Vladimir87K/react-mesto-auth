@@ -6,7 +6,7 @@ const PopupAvatar = (props) => {
 
   useEffect(() => {
     textInputAvatar.current.value = '';
-  }, [props.onClose])
+  }, [props.isOpen])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,11 +17,10 @@ const PopupAvatar = (props) => {
   } 
   
   return (
-    <PopupWithForm isOpen={props.isOpen} title='Обновить аватар' name='avatar' onClose={props.onClose} onSubmit={handleSubmit} >
+    <PopupWithForm isOpen={props.isOpen} title='Обновить аватар' name='avatar' onClose={props.onClose} onSubmit={handleSubmit} buttonText={"Сохранить"}>
     <fieldset className="popup__form-content">
       <input ref={textInputAvatar}  id="popup__form-url-avatar" type="url" className="popup__form popup__form-url-avatar" name="urlAvatar" placeholder='Ссылка на аватарку' required />
       <span className="popup__form-error popup__form-url-avatar-error" />
-      <button type="submit" className="popup__form-save" value="Сохранить">Сохранить</button>
     </fieldset>
     </PopupWithForm>
   );

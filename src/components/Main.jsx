@@ -22,13 +22,13 @@ const Main = (props) => {
       </section>
       <section className="cards">
       {props.cards.map((card) => 
-        <Card handleCardClick={props.handleCardClick} 
+        (<Card handleCardClick={props.handleCardClick} 
               onCardClick={props.onCardClick} 
               key={card._id} 
               card={card} 
               onCardLike={props.handleCardLike}
               onCardDelete={props.handleDeleteClick} /> 
-              )}
+              ))}
       </section>
     </div>
   )
