@@ -34,7 +34,7 @@ const PopupProfil = (props) => {
       <fieldset className="popup__form-content">
         <input onChange={handleChangeName} id="popup__form-name" type="text" className="popup__form popup__form-name" name="userName" value={name} minLength={2} maxLength={40} required />
         <span className="popup__form-error popup__form-name-error" />
-        <input onChange={handleChangeAbout} id="popup__form-profetional" type="text" className="popup__form popup__form-profetional" name="userJob" defaultValue={about} minLength={2} maxLength={200} required />
+        <input onChange={handleChangeAbout} id="popup__form-profetional" type="text" className="popup__form popup__form-profetional" name="userJob" value={about} minLength={2} maxLength={200} required />
         <span className="popup__form-error popup__form-profetional-error" />
      </fieldset>
    </PopupWithForm>
