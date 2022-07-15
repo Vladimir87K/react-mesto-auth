@@ -6,10 +6,12 @@ class Auth {
 
 
   _checkError(res) {
+    console.log(res)
     if (res.ok) {
         return res.json();
     } else {
         Promise.reject(`Произошла ошибка: ${res.status}`);
+        return false;
     }
   }
 

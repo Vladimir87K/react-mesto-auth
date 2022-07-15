@@ -1,15 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import PopupWithForm from "./PopupWithForm";
 import error from '../image/Error.svg';
 import goodinput from '../image/Goodinput.svg'
 
 function InfoTooltip(props) {
   const navigate = useNavigate()
 
+  
+
   const onClose = () => {
     props.onClose();
-    navigate("/sign-in");
+    props.user ? navigate("/sign-in") : navigate("/sign-up");
   }
 
   return (

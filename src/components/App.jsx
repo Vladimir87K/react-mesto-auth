@@ -32,7 +32,7 @@ const App = () => {
     const [user, setUser] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [email, setEmail] = useState('');    
-    const [userData, setUserData] = useState({});
+ //   const [reply, setReply] = useState(false);
 
     useEffect(() => {
          api.getInitialProfil().then((data) => {
@@ -69,19 +69,23 @@ const App = () => {
     }
 
     const handleLogin = () => {
-        user ? navigate("/sign-in") : navigate("/sign-up");        
-    }
+            navigate("/sign-in");
+            setUser(!user);
+        }
 
     const registrationSubmit = (data) => {
         auth.getRegistration(data)
-            .then((res) => setUser(true))
-            .catch((err) => {
-                console.log(err);
-                setUser(false);
+            .then((res) => {
+                if (res) {setUser(true)};
             })
-            .finally(
-                setIsInfoTooltip(true)
-            )
+            .catch((err) => {
+                setUser(false)
+                console.log(err);
+            })
+            .finally(() => {
+                console.log(user);
+                setIsInfoTooltip(true);
+            })
     }
 
     const autorizationSubmit = (data) => {
@@ -93,6 +97,7 @@ const App = () => {
                     localStorage.setItem('JWT', res.token);
                     navigate("/main")
                 } else {
+                    setEmail('')
                     setUser(false);
                     setIsInfoTooltip(true);
                 }
@@ -178,6 +183,7 @@ const App = () => {
     const handleRegistration = () => {
         if (user && loggedIn) {
           localStorage.removeItem("JWT");
+          setUser(false)
           setLoggedIn(false);
           setEmail('')
           navigate("/sign-in");
@@ -211,7 +217,7 @@ const App = () => {
                             } />
                         <Route path="*" element={<Register onSubmit={registrationSubmit} handleLogin={handleLogin} /> } />
                     </Routes>
-                    <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} user={user}  />
+                    <InfoTooltip isOpen={isInfoTooltip} onClose={closeAllPopups} user={user} />
                     <ImagePopup card={cardForPopup} onCardClick={onCardClick} />
                     <PopupAvatar isOpen={isPopupAvatarOpen} onClose={closeAllPopups} onUpdateAvatar={onUpdateAvatar} />
                     <PopupProfil isOpen={isPopupProfilOpen} onClose={closeAllPopups} onUpdateUser={onUpdateUser} />
